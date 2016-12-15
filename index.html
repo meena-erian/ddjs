@@ -3,7 +3,7 @@
 <head>
 <script>
 	var pointerToDragedObject = undefined;
-	var lx=-1;
+    var lx=-1;
 	var ly=0;
     function objectMouseDown(object) {
     	pointerToDragedObject = object;
@@ -11,40 +11,43 @@
     }
     function objectMouseUp(event) {
     }
-	function windowMouseDown(event) {
-		console.log('checking object pointer' + lx);
+	function windowMouseDown(event, w) {
+		console.log(w);
+		console.log('checking object pointer');
     	if(pointerToDragedObject && lx==-1) {
-        	lx = event.pageX;
-            ly = event.pageY;
+        	lx = event.pageX - w.offsetLeft;
+            ly = event.pageY - w.offsetTop;
 			console.log('object starting location saved');
         }
     }
     function windowMouseUp(event) {
-		pointerToDragedObject = undefined;
-		lx=-1;
-		console.log('object released');
+		if(pointerToDragedObject) {
+			pointerToDragedObject = undefined;
+			lx=-1;
+			console.log('object released');
+		}
     }
-    function windowMouseMove(event) {
+    function windowMouseMove(event, w) {
     	if(pointerToDragedObject!=undefined) {
-        	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx);
-            var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly);
+        	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
+            var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
 			console.log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
         	pointerToDragedObject.style.left = nX + "px";
             pointerToDragedObject.style.top = nY + "px";
-            lx = event.pageX;
-            ly = event.pageY;
+            lx = event.pageX - w.offsetLeft;
+            ly = event.pageY - w.offsetTop;
         }
         var c = document.getElementById('coord');
-        c.innerHTML = "X:"+event.pageX+"<br>Y:"+event.pageY;
+        c.innerHTML = "X:"+(event.pageX - w.offsetLeft)+"<br>Y:"+(event.pageY - w.offsetTop);
     }
 </script>
 	<style>
     	#game-window {
         	position:absolute;
-            width:100%;
-            height:100%;
+            width:70%;
+            height:800px;
             background: lightgray;
-            margin:0px;
+            margin:50px;
         }
         .dragable {
         	position:absolute;
@@ -55,13 +58,15 @@
         .dragable:hover {background:lightblue;}
     </style>
 </head>
-<body id='game-window' onmousemove='windowMouseMove(event)' onmousedown='windowMouseDown(event)' onmouseup='windowMouseUp(event)'>
-	<div style = "top:30px;left:100px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
-	<div style = "top:70px;left:300px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
-	<div style = "top:70px;left:400px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
-	<div style = "top:70px;left:500px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
-	<div style = "top:70px;left:600px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
-<p id='coord' style="position:relative;top:400px;"></p>
+<body style="text-align:center;">
+	<div id='game-window' onmousemove='windowMouseMove(event,this)' onmousedown='windowMouseDown(event,this)' onmouseup='windowMouseUp(event)'>
+		<div style = "top:30px;left:100px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
+		<div style = "top:70px;left:300px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
+		<div style = "top:70px;left:400px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
+		<div style = "top:70px;left:500px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
+		<div style = "top:70px;left:600px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)'></div>
+		<p id='coord' style="position:relative;top:400px;"></p>
+	</div>
 </body>
 
 </html>
