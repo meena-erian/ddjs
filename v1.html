@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<style>
+    	.game-window {
+		border: 1px solid gray;
+		box-shadow: 0 0 10px lightgray;
+		position:relative;
+		width:70%;
+		height:800px;
+		margin:auto;
+        }
+        .dragable {
+        	position:absolute;
+		width:50px;
+		height:50px;
+		background:blue;
+		border: 20px solid red;
+        }
+        .dragable:hover {background:lightblue;}
+	</style>
+</head>
+<body style="text-align:center;">
+	<h1>Drag and drop any box</h1>
+	<div class='game-window' onmousemove='windowMouseMove(event,this)' onmousedown='windowMouseDown(event,this)' onmouseup='windowMouseUp(event)'>
+		<div style = "top:30px;left:100px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<div style = "top:70px;left:300px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<div style = "top:70px;left:400px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<div style = "top:70px;left:500px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<div style = "top:70px;left:600px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<p id='coord' style="position:relative;top:400px;"></p>
+	</div>
+	<p id='log' style='text-align:left;'></p>
+
 <script>
 	function log(s) {
 		//var l = document.getElementById('log');
@@ -103,36 +134,11 @@
 			log('object released');
 		}
     }
+	var gameWindowList = document.getElementsByClassName('game-window');
+	var dragableList = document.getElementsByClassName('dragable');
+	for(var i=0; i<gameWindowList; i++) {
+		//gameWindowList[i].addEventListener....
+	}
 </script>
-	<style>
-    	#game-window {
-		border: 1px solid gray;
-		box-shadow: 0 0 10px lightgray;
-		position:relative;
-		width:70%;
-		height:800px;
-		margin:auto;
-        }
-        .dragable {
-        	position:absolute;
-		width:50px;
-		height:50px;
-		background:blue;
-		border: 20px solid red;
-        }
-        .dragable:hover {background:lightblue;}
-    </style>
-</head>
-<body style="text-align:center;">
-	<h1>Drag and drop any box</h1>
-	<div id='game-window' onmousemove='windowMouseMove(event,this)' onmousedown='windowMouseDown(event,this)' onmouseup='windowMouseUp(event)'>
-		<div style = "top:30px;left:100px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
-		<div style = "top:70px;left:300px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
-		<div style = "top:70px;left:400px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
-		<div style = "top:70px;left:500px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
-		<div style = "top:70px;left:600px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
-		<p id='coord' style="position:relative;top:400px;"></p>
-	</div>
-	<p id='log' style='text-align:left;'></p>
 </body>
 </html>
