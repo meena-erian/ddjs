@@ -60,17 +60,18 @@
     function TouchMove(event, w) {
 	    log('touch move');
     	if(pointerToDragedObject!=undefined) {
-        	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
-		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
+		log('moving object...');
+        	var nX = parseInt(pointerToDragedObject.style.left) + (event[0].pageX - lx - w.offsetLeft);
+		var nY = parseInt(pointerToDragedObject.style.top) + (event[0].pageY - ly - w.offsetTop);
 		log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
         	pointerToDragedObject.style.left = nX + "px";
 		pointerToDragedObject.style.top = nY + "px";
-		lx = event.pageX - w.offsetLeft;
-		ly = event.pageY - w.offsetTop;
+		lx = event[0].pageX - w.offsetLeft;
+		ly = event[0].pageY - w.offsetTop;
 		log('object moved');
         }
         var c = document.getElementById('coord');
-        c.innerHTML = "X:"+(event.pageX - w.offsetLeft)+"<br>Y:"+(event.pageY - w.offsetTop);
+        c.innerHTML = "X:"+(event[0].pageX - w.offsetLeft)+"<br>Y:"+(event[0].pageY - w.offsetTop);
     }
     function TouchCancel(event) {
 	    log('touch cancel');
