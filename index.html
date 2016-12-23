@@ -14,6 +14,11 @@
 		log('object pointer saved ' + object);
     }
     function objectMouseUp(event) {
+		if(pointerToDragedObject) {
+			pointerToDragedObject = undefined;
+			lx=-1;
+			log('object released');
+		}
     }
     function windowMouseDown(event, w) {
 	    event.preventDefault();
@@ -101,12 +106,12 @@
 </script>
 	<style>
     	#game-window {
-		border: 50px solid gray;
+		border: 1px solid gray;
 		box-shadow: 0 0 10px lightgray;
 		position:relative;
 		width:70%;
 		height:800px;
-		margin:50px;
+		margin:auto;
         }
         .dragable {
         	position:absolute;
