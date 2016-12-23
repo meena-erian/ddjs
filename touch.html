@@ -25,12 +25,20 @@
     <p id='log'></p>
   </body>
   <script>
+    function touchListDump(tl) {
+      var s = '[';
+      for(var i=0; i<tl.length; i++, s+=', ') {
+        s += '(' + tl[i].clientX + ', ' + tl[i].clientY + ')';
+      }
+      s+=']';
+      return s;
+    }
     var log = document.getElementById('log');
-    function TouchStart(ev) {log.innerHTML += 'Touch start'+ev.changedTouches[0]+'<br>';
+    function TouchStart(ev) {log.innerHTML += 'Touch start'+touchListDump(ev.changedTouches)+'<br>';
     }
     function TouchEnd(ev) {log.innerHTML += 'Touch end<br>';
     }
-    function TouchMove(ev) {log.innerHTML += 'Touch move<br>';
+    function TouchMove(ev) {log.innerHTML += 'Touch move'+touchListDump(ev.changedTouches)+'<br>';
     }
     function TouchCancel(ev) {log.innerHTML += 'Touch cancel<br>';
     }
