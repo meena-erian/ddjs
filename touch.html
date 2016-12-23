@@ -26,7 +26,7 @@
   </body>
   <script>
     var log = document.getElementById('log');
-    function TouchStart(ev) {log.innerHTML += 'Touch start'+ev.changedTouches+'<br>';
+    function TouchStart(ev) {log.innerHTML += 'Touch start'+ev.changedTouches[0]+'<br>';
     }
     function TouchEnd(ev) {log.innerHTML += 'Touch end<br>';
     }
