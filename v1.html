@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+	function log(s) {
+		//var l = document.getElementById('log');
+		//l.innerHTML+=s+'<br>';
+	}
+	var pointerToDragedObject = undefined;
+	var lx=-1;
+	var ly=0;
+    function objectMouseDown(object) {
+    	pointerToDragedObject = object;
+		log('object pointer saved ' + object);
+    }
+    function objectMouseUp(event) {
+		if(pointerToDragedObject) {
+			pointerToDragedObject = undefined;
+			lx=-1;
+			log('object released');
+		}
+    }
+    function windowMouseDown(event, w) {
+	    event.preventDefault();
+		log(w);
+		log('checking object pointer');
+    	if(pointerToDragedObject && lx==-1) {
+        	lx = event.pageX - w.offsetLeft;
+            ly = event.pageY - w.offsetTop;
+			log('object starting location saved');
+        }
+    }
+    function windowMouseUp(event) {
+		if(pointerToDragedObject) {
+			pointerToDragedObject = undefined;
+			lx=-1;
+			log('object released');
+		}
+    }
+    function windowMouseMove(event, w) {
+	    event.preventDefault();
+    	if(pointerToDragedObject!=undefined) {
+        	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
+		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
+		if(nX<0)nX=0;
+		if(nY<0)nY=0;
+		if(nX>w.clientWidth-pointerToDragedObject.offsetWidth)nX=w.clientWidth-pointerToDragedObject.offsetWidth;
+		if(nY>w.clientHeight-pointerToDragedObject.offsetHeight)nY=w.clientHeight-pointerToDragedObject.offsetHeight;
+		log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
+        	pointerToDragedObject.style.left = nX + "px";
+		pointerToDragedObject.style.top = nY + "px";
+		lx = event.pageX - w.offsetLeft;
+		ly = event.pageY - w.offsetTop;
+        }
+        var c = document.getElementById('coord');
+        c.innerHTML = "X:"+(event.pageX - w.offsetLeft)+"<br>Y:"+(event.pageY - w.offsetTop);
+    }
+	
+    function TouchStart(event, object, w) {
+	    event.preventDefault();
+	    pointerToDragedObject = object;
+	    log('touch start');
+	    lx = event.pageX - w.offsetLeft;
+            ly = event.pageY - w.offsetTop;
+	    log('object starting location saved');
+    }
+    function TouchEnd(event) {
+	    log('touch end');
+		if(pointerToDragedObject) {
+			pointerToDragedObject = undefined;
+			lx=-1;
+			log('object released');
+		}
+    }
+    function TouchMove(event, w) {
+	    event.preventDefault();
+	    log('touch move');
+    	if(pointerToDragedObject!=undefined) {
+		log('moving object...');
+		log('event:' + event + ", w:" + w);
+        	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
+		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
+		if(nX<0)nX=0;
+		if(nY<0)nY=0;
+		if(nX>w.clientWidth-pointerToDragedObject.offsetWidth)nX=w.clientWidth-pointerToDragedObject.offsetWidth;
+		if(nY>w.clientHeight-pointerToDragedObject.offsetHeight)nY=w.clientHeight-pointerToDragedObject.offsetHeight;
+		log('nX:'+nX+', nY'+nY);
+		log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
+        	pointerToDragedObject.style.left = nX + "px";
+		pointerToDragedObject.style.top = nY + "px";
+		lx = event.pageX - w.offsetLeft;
+		ly = event.pageY - w.offsetTop;
+		log('object moved');
+        }
+        var c = document.getElementById('coord');
+        c.innerHTML = "X:"+(event[0].pageX - w.offsetLeft)+"<br>Y:"+(event[0].pageY - w.offsetTop);
+    }
+    function TouchCancel(event) {
+	    log('touch cancel');
+		if(pointerToDragedObject) {
+			pointerToDragedObject = undefined;
+			lx=-1;
+			log('object released');
+		}
+    }
+</script>
+	<style>
+    	#game-window {
+		border: 1px solid gray;
+		box-shadow: 0 0 10px lightgray;
+		position:relative;
+		width:70%;
+		height:800px;
+		margin:auto;
+        }
+        .dragable {
+        	position:absolute;
+		width:50px;
+		height:50px;
+		background:blue;
+		border: 20px solid red;
+        }
+        .dragable:hover {background:lightblue;}
+    </style>
+</head>
+<body style="text-align:center;">
+	<h1>Drag and drop any box</h1>
+	<div id='game-window' onmousemove='windowMouseMove(event,this)' onmousedown='windowMouseDown(event,this)' onmouseup='windowMouseUp(event)'>
+		<div style = "top:30px;left:100px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<div style = "top:70px;left:300px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<div style = "top:70px;left:400px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<div style = "top:70px;left:500px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<div style = "top:70px;left:600px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
+		<p id='coord' style="position:relative;top:400px;"></p>
+	</div>
+	<p id='log' style='text-align:left;'></p>
+</body>
+</html>
