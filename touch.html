@@ -20,8 +20,20 @@
   </head>
   <body>
     <div id='game-window'>
-      <div class='dragable' ontouchstart='alert("touchstart")'></div>
+      <div class='dragable' ontouchstart='TouchStart(event)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event)' ontouchcancel='TouchCancel(event)'></div>
     </div>
+    <p id='log'></p>
   </body>
+  <script>
+    var log = document.getElementById('log');
+    function TouchStart(ev) {log.innerHTML += 'Touch start\n';
+    }
+    function TouchEnd(ev) {log.innerHTML += 'Touch end\n';
+    }
+    function TouchMove(ev) {log.innerHTML += 'Touch move\n';
+    }
+    function TouchCancel(ev) {log.innerHTML += 'Touch cancel\n';
+    }
+  </script>
 </html>
 
