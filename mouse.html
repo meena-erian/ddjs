@@ -16,6 +16,7 @@
     function objectMouseUp(event) {
     }
     function windowMouseDown(event, w) {
+	    event.preventDefault();
 		log(w);
 		log('checking object pointer');
     	if(pointerToDragedObject && lx==-1) {
@@ -32,6 +33,7 @@
 		}
     }
     function windowMouseMove(event, w) {
+	    event.preventDefault();
     	if(pointerToDragedObject!=undefined) {
         	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
 		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
@@ -46,6 +48,7 @@
     }
 	
     function TouchStart(event, object, w) {
+	    event.preventDefault();
 	    pointerToDragedObject = object;
 	    log('touch start');
 	    lx = event.pageX - w.offsetLeft;
@@ -61,6 +64,7 @@
 		}
     }
     function TouchMove(event, w) {
+	    event.preventDefault();
 	    log('touch move');
     	if(pointerToDragedObject!=undefined) {
 		log('moving object...');
@@ -89,10 +93,11 @@
 </script>
 	<style>
     	#game-window {
+		border: 1px solid gray;
+		box-shadow: 0 0 10px lightgray;
 		position:relative;
 		width:70%;
 		height:800px;
-		background: lightgray;
 		margin:50px;
         }
         .dragable {
@@ -114,6 +119,6 @@
 		<div style = "top:70px;left:600px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this, this.parentNode)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event, this.parentNode)' ontouchcancel='TouchCancel(event)'></div>
 		<p id='coord' style="position:relative;top:400px;"></p>
 	</div>
-	<p id='log'></p>
+	<p id='log' style='text-align:left;'></p>
 </body>
 </html>
