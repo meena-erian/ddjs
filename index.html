@@ -3,8 +3,8 @@
 <head>
 <script>
 	function log(s) {
-		var l = document.getElementById('log');
-		l.innerHTML+=s+'<br>';
+		//var l = document.getElementById('log');
+		//l.innerHTML+=s+'<br>';
 	}
 	var pointerToDragedObject = undefined;
 	var lx=-1;
@@ -37,6 +37,8 @@
     	if(pointerToDragedObject!=undefined) {
         	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
 		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
+		nX<0?nX=0:;
+		nY<0?nY=0:;
 		log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
         	pointerToDragedObject.style.left = nX + "px";
 		pointerToDragedObject.style.top = nY + "px";
@@ -71,6 +73,8 @@
 		log('event:' + event + ", w:" + w);
         	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
 		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
+		nX<0?nX=0:;
+		nY<0?nY=0:;
 		log('nX:'+nX+', nY'+nY);
 		log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
         	pointerToDragedObject.style.left = nX + "px";
