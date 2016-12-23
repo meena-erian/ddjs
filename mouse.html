@@ -11,7 +11,7 @@
 	var ly=0;
     function objectMouseDown(object) {
     	pointerToDragedObject = object;
-		log('object pointer saved');
+		log('object pointer saved ' + object);
     }
     function objectMouseUp(event) {
     }
@@ -57,7 +57,7 @@
 			log('object released');
 		}
     }
-    function TouchMove(event) {
+    function TouchMove(event, w) {
 	    log('touch move');
     	if(pointerToDragedObject!=undefined) {
         	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
