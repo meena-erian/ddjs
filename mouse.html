@@ -2,36 +2,40 @@
 <html>
 <head>
 <script>
+	function log(s) {
+		var l = document.getElementById('log');
+		l.innerHTML+=s+'<br>';
+	}
 	var pointerToDragedObject = undefined;
     var lx=-1;
 	var ly=0;
     function objectMouseDown(object) {
     	pointerToDragedObject = object;
-		console.log('object pointer saved');
+		log('object pointer saved');
     }
     function objectMouseUp(event) {
     }
 	function windowMouseDown(event, w) {
-		console.log(w);
-		console.log('checking object pointer');
+		log(w);
+		log('checking object pointer');
     	if(pointerToDragedObject && lx==-1) {
         	lx = event.pageX - w.offsetLeft;
             ly = event.pageY - w.offsetTop;
-			console.log('object starting location saved');
+			log('object starting location saved');
         }
     }
     function windowMouseUp(event) {
 		if(pointerToDragedObject) {
 			pointerToDragedObject = undefined;
 			lx=-1;
-			console.log('object released');
+			log('object released');
 		}
     }
     function windowMouseMove(event, w) {
     	if(pointerToDragedObject!=undefined) {
         	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
 		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
-		console.log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
+		log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
         	pointerToDragedObject.style.left = nX + "px";
 		pointerToDragedObject.style.top = nY + "px";
 		lx = event.pageX - w.offsetLeft;
@@ -48,14 +52,14 @@
 		if(pointerToDragedObject) {
 			pointerToDragedObject = undefined;
 			lx=-1;
-			console.log('object released');
+			log('object released');
 		}
     }
     function TouchMove(ev) {
     	if(pointerToDragedObject!=undefined) {
         	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
 		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
-		console.log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
+		log('object moved from (' + pointerToDragedObject.style.left + "," + pointerToDragedObject.style.top + ") to (" + nX + "px," + nY + "px)");
         	pointerToDragedObject.style.left = nX + "px";
 		pointerToDragedObject.style.top = nY + "px";
 		lx = event.pageX - w.offsetLeft;
@@ -68,7 +72,7 @@
 		if(pointerToDragedObject) {
 			pointerToDragedObject = undefined;
 			lx=-1;
-			console.log('object released');
+			log('object released');
 		}
     }
 </script>
@@ -90,6 +94,7 @@
     </style>
 </head>
 <body style="text-align:center;">
+	<h1>Drag and drop any box</h1>
 	<div id='game-window' onmousemove='windowMouseMove(event,this)' onmousedown='windowMouseDown(event,this)' onmouseup='windowMouseUp(event)'>
 		<div style = "top:30px;left:100px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event)' ontouchcancel='TouchCancel(event)'></div>
 		<div style = "top:70px;left:300px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event)' ontouchcancel='TouchCancel(event)'></div>
@@ -98,6 +103,7 @@
 		<div style = "top:70px;left:600px;"class='dragable' onmousedown='objectMouseDown(this)' onmouseup='objectMouseUp(event)' ontouchstart='TouchStart(event, this)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event)' ontouchcancel='TouchCancel(event)'></div>
 		<p id='coord' style="position:relative;top:400px;"></p>
 	</div>
+	<p id='log'></p>
 </body>
 
 </html>
