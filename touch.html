@@ -26,13 +26,13 @@
   </body>
   <script>
     var log = document.getElementById('log');
-    function TouchStart(ev) {log.innerHTML += 'Touch start\n';
+    function TouchStart(ev) {log.innerHTML += 'Touch start'+ev.changedTouches+'<br>';
     }
-    function TouchEnd(ev) {log.innerHTML += 'Touch end\n';
+    function TouchEnd(ev) {log.innerHTML += 'Touch end<br>';
     }
-    function TouchMove(ev) {log.innerHTML += 'Touch move\n';
+    function TouchMove(ev) {log.innerHTML += 'Touch move<br>';
     }
-    function TouchCancel(ev) {log.innerHTML += 'Touch cancel\n';
+    function TouchCancel(ev) {log.innerHTML += 'Touch cancel<br>';
     }
   </script>
 </html>
