@@ -45,8 +45,9 @@
         c.innerHTML = "X:"+(event.pageX - w.offsetLeft)+"<br>Y:"+(event.pageY - w.offsetTop);
     }
 	
-    function TouchStart(ev) {
+    function TouchStart(ev, object) {
 	    pointerToDragedObject = object;
+	    log(object);
     }
     function TouchEnd(ev) {
 		if(pointerToDragedObject) {
