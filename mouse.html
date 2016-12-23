@@ -47,9 +47,10 @@
 	
     function TouchStart(ev, object) {
 	    pointerToDragedObject = object;
-	    log(object);
+	    log('touch start');
     }
     function TouchEnd(ev) {
+	    log('touch end');
 		if(pointerToDragedObject) {
 			pointerToDragedObject = undefined;
 			lx=-1;
@@ -57,6 +58,7 @@
 		}
     }
     function TouchMove(ev) {
+	    log('touch move');
     	if(pointerToDragedObject!=undefined) {
         	var nX = parseInt(pointerToDragedObject.style.left) + (event.pageX - lx - w.offsetLeft);
 		var nY = parseInt(pointerToDragedObject.style.top) + (event.pageY - ly - w.offsetTop);
@@ -65,11 +67,13 @@
 		pointerToDragedObject.style.top = nY + "px";
 		lx = event.pageX - w.offsetLeft;
 		ly = event.pageY - w.offsetTop;
+		log('object moved');
         }
         var c = document.getElementById('coord');
         c.innerHTML = "X:"+(event.pageX - w.offsetLeft)+"<br>Y:"+(event.pageY - w.offsetTop);
     }
     function TouchCancel(ev) {
+	    log('touch cancel');
 		if(pointerToDragedObject) {
 			pointerToDragedObject = undefined;
 			lx=-1;
