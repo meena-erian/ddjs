@@ -2,7 +2,6 @@
 <html>
   <head>
     <style>
-    
       #game-window {
         border: 1px solid gray;
         box-shadow: 0 0 10px lightgray;
@@ -24,7 +23,6 @@
       <div class='dragable' ontouchstart='TouchStart(event)' ontouchend='TouchEnd(event)' ontouchmove='TouchMove(event)' ontouchcancel='TouchCancel(event)'></div>
     </div>
     <p id='log'></p>
-  </body>
   <script>
     function touchListDump(tl) {
       var s = '[';
@@ -44,5 +42,6 @@
     function TouchCancel(ev) {log.innerHTML += 'Touch cancel<br>';
     }
   </script>
+  </body>
 </html>
 
